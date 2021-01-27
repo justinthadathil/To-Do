@@ -1,0 +1,60 @@
+<mat-toolbar style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
+  <mat-icon aria-hidden="false" style="color: white;" aria-label="Example home icon">assignment_turned_in</mat-icon>
+  <h1 class="todo">To-Do list</h1>
+</mat-toolbar>
+
+<div class="content-wapper">
+  <div style="margin: 20px;">
+    <button mat-raised-button color="accent" (click)="newTask()">
+      <mat-icon>
+        add
+      </mat-icon> Add Task
+    </button>
+  </div>
+
+  <div class="container-wapper">
+
+    <div class="container">
+      <mat-card class="newTask">
+        <mat-card-header style="justify-content: center;">
+          <mat-card-title style="padding: 15px">New Task</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div cdkDropList id="todo" #todolist="cdkDropList" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[inProgresslist, donelist]">
+            <p class="empty-label" *ngIf="todo.length === 0">Empty list</p>
+            <app-task cdkDrag *ngFor="let task of todo" [task]="task" (edit)="edit('todo',$event)"></app-task>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="container">
+      <mat-card class="newTask">
+        <mat-card-header style="justify-content: center;">
+          <mat-card-title style="padding: 15px">In Progress</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div cdkDropList id="inProgress" #inProgresslist="cdkDropList" [cdkDropListData]="inProgress" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todolist, donelist]">
+            <p class="empty-label" *ngIf="inProgress.length === 0">Empty list</p>
+            <app-task cdkDrag *ngFor="let task of inProgress" [task]="task" (edit)="edit('inProgress',$event)"></app-task>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="container">
+      <mat-card class="newTask">
+        <mat-card-header style="justify-content: center;">
+          <mat-card-title style="padding: 15px">Completed</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div cdkDropList id="done" #donelist="cdkDropList" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todolist, inProgresslist]">
+            <p class="empty-label" *ngIf="done.length === 0">Empty list</p>
+            <app-task cdkDrag *ngFor="let task of done" [task]="task" (edit)="edit('done',$event)"></app-task>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+</div>

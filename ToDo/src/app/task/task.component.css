@@ -1,0 +1,13 @@
+:host{
+  display: block;
+}
+
+.item{
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.newTaskcard{
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  margin-bottom: 10px;
+}
