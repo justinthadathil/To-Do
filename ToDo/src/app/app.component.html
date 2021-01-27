@@ -1,11 +1,11 @@
-<mat-toolbar style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
+<mat-toolbar style="background-image: linear-gradient(to right, #ef6747 0%, #ef6349 100%);">
   <mat-icon aria-hidden="false" style="color: white;" aria-label="Example home icon">assignment_turned_in</mat-icon>
   <h1 class="todo">To-Do list</h1>
 </mat-toolbar>
 
 <div class="content-wapper">
   <div style="margin: 20px;">
-    <button mat-raised-button color="accent" (click)="newTask()">
+    <button mat-raised-button style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);" (click)="newTask()">
       <mat-icon>
         add
       </mat-icon> Add Task
@@ -17,7 +17,7 @@
     <div class="container">
       <mat-card class="newTask">
         <mat-card-header style="justify-content: center;">
-          <mat-card-title style="padding: 15px">New Task</mat-card-title>
+          <mat-card-title style="padding: 15px;color: white;">New Task</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <div cdkDropList id="todo" #todolist="cdkDropList" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[inProgresslist, donelist]">
@@ -31,7 +31,7 @@
     <div class="container">
       <mat-card class="newTask">
         <mat-card-header style="justify-content: center;">
-          <mat-card-title style="padding: 15px">In Progress</mat-card-title>
+          <mat-card-title style="padding: 15px;color: white;">In Progress</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <div cdkDropList id="inProgress" #inProgresslist="cdkDropList" [cdkDropListData]="inProgress" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todolist, donelist]">
@@ -45,7 +45,7 @@
     <div class="container">
       <mat-card class="newTask">
         <mat-card-header style="justify-content: center;">
-          <mat-card-title style="padding: 15px">Completed</mat-card-title>
+          <mat-card-title style="padding: 15px;color: white;">Completed</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <div cdkDropList id="done" #donelist="cdkDropList" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todolist, inProgresslist]">
