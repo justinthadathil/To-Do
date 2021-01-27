@@ -1,11 +1,11 @@
-<mat-form-field>
+<mat-form-field style="width: -webkit-fill-available;">
   <mat-label>
     Title
   </mat-label>
   <input matInput cdkFocusIniial [(ngModel)]="data.task.title" />
 </mat-form-field>
 
-<mat-form-field>
+<mat-form-field style="width: -webkit-fill-available;">
   <mat-label>
     Description
   </mat-label>
@@ -13,6 +13,9 @@
 </mat-form-field>
 
 <div mat-dialog-actions>
-  <button mat-raised-button [mat-dialog-close]="{task: data.task}">Ok</button>
-  <button mat-raised-button (click)="cancel()">Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="{task: data.task}" class="btncolor">Ok</button>
+  <button mat-raised-button (click)="cancel()" class="btncolor">Cancel</button>
+  <button *ngIf="data.enableDelete" mat-raised-button [mat-dialog-close]="{task:data.task, delete:true}" class="btncolor">
+    <mat-icon>delete_forever</mat-icon>
+  </button>
 </div>

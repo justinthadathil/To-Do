@@ -1,5 +1,12 @@
 <mat-card class="item" (dblclick)="edit.emit(task)" class="newTaskcard">
-  <h1>{{task.title}}</h1>
+  <div style="display: flex;">
+    <div style="width: 90%;">
+      <h1>{{task.title}}</h1>
+    </div>
+    <div>
+      <mat-icon style="cursor: pointer;">create</mat-icon>
+    </div>
+  </div>
   <mat-divider></mat-divider>
   <p style="padding-top: 10px;">{{task.description}}</p>
 </mat-card>
