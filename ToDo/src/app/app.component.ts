@@ -4,6 +4,16 @@ import{Task} from './task/task';
 import {MatDialog} from '@angular/material/dialog';
 import{TaskDialogComponent} from './task-dialog/task-dialog.component';
 import {TaskDialogResult} from './task-dialog/task-dialog.component'
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
+
+const getObservable = (collection: AngularFirestoreCollection<Task>) => {
+  const subject = new BehaviorSubject([]);
+  collection.valueChanges({idField: 'id'}).subscribe((val: Task[]) => {
+    subject.next(val);
+  });
+  return subject;
+}
 
 @Component({
   selector: 'app-root',
@@ -11,20 +21,11 @@ import {TaskDialogResult} from './task-dialog/task-dialog.component'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  todo: Task[] = [
-    {
-      title:'Buy Milk',
-      description:'go to store',
-    },
-    {
-      title:'Buy cloths',
-      description:'go to cloth shop',
-    },
-  ];
-  inProgress: Task[]=[];
-  done: Task[]=[];
+  todo = getObservable(this.store.collection('todo'));
+  inProgress = getObservable(this.store.collection('inProgress'));
+  done = getObservable(this.store.collection('done'));
 
-  constructor(private dialog: MatDialog){
+  constructor(private dialog: MatDialog, private store: AngularFirestore){
 
   }
 
@@ -32,6 +33,13 @@ export class AppComponent {
     if(event.previousContainer === event.container){
       return;
     }
+    const item = event.previousContainer.data[event.previousIndex];
+    this.store.firestore.runTransaction(()=>{
+      return Promise.all([
+        this.store.collection(event.previousContainer.id).doc(item.id).delete(),
+        this.store.collection(event.container.id).add(item)
+      ])
+    })
     transferArrayItem(
       event.previousContainer.data,
       event.container.data,
@@ -50,12 +58,10 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe((result: TaskDialogResult) => {
-      const dataList = this[list];
-      const taskIndex =dataList.indexOf(task);
       if(result.delete){
-        dataList.splice(taskIndex, 1);
+        this.store.collection(list).doc(task.id).delete();
       }else{
-        dataList[taskIndex] = task;
+        this.store.collection(list).doc(task.id).update(task);
       }
     })
   }
@@ -67,6 +73,6 @@ export class AppComponent {
         task:{}
       }
     });
-    dialogRef.afterClosed().subscribe((result: TaskDialogResult) => this.todo.push(result.task));
+    dialogRef.afterClosed().subscribe((result: TaskDialogResult) => this.store.collection('todo').add(result.task));
   }
 }

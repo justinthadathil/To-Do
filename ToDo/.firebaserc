@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "todolist-31f83": {
+      "hosting": {
+        "ToDo": [
+          "todolist-31f83"
+        ]
+      }
+    }
+  }
+}

@@ -7,6 +7,9 @@ import {MaterialModule} from './material/material.module';
 import { TaskComponent } from './task/task.component';
 import { TaskDialogComponent } from './task-dialog/task-dialog.component';
 import {FormsModule} from '@angular/forms';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,9 @@ import {FormsModule} from '@angular/forms';
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],
   bootstrap: [AppComponent]

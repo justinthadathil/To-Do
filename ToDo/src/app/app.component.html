@@ -20,9 +20,9 @@
           <mat-card-title style="padding: 15px;color: white;">New Task</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <div cdkDropList id="todo" #todolist="cdkDropList" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[inProgresslist, donelist]">
-            <p class="empty-label" *ngIf="todo.length === 0">Empty list</p>
-            <app-task cdkDrag *ngFor="let task of todo" [task]="task" (edit)="edit('todo',$event)"></app-task>
+          <div cdkDropList id="todo" #todolist="cdkDropList" [cdkDropListData]="todo | async" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[inProgresslist, donelist]">
+            <p class="empty-label" *ngIf="(todo | async)?.length === 0">Empty list</p>
+            <app-task cdkDrag *ngFor="let task of todo | async" [task]="task" (edit)="edit('todo',$event)"></app-task>
           </div>
         </mat-card-content>
       </mat-card>
@@ -34,9 +34,9 @@
           <mat-card-title style="padding: 15px;color: white;">In Progress</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <div cdkDropList id="inProgress" #inProgresslist="cdkDropList" [cdkDropListData]="inProgress" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todolist, donelist]">
-            <p class="empty-label" *ngIf="inProgress.length === 0">Empty list</p>
-            <app-task cdkDrag *ngFor="let task of inProgress" [task]="task" (edit)="edit('inProgress',$event)"></app-task>
+          <div cdkDropList id="inProgress" #inProgresslist="cdkDropList" [cdkDropListData]="inProgress | async" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todolist, donelist]">
+            <p class="empty-label" *ngIf="(inProgress | async)?.length === 0">Empty list</p>
+            <app-task cdkDrag *ngFor="let task of inProgress | async" [task]="task" (edit)="edit('inProgress',$event)"></app-task>
           </div>
         </mat-card-content>
       </mat-card>
@@ -48,9 +48,9 @@
           <mat-card-title style="padding: 15px;color: white;">Completed</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <div cdkDropList id="done" #donelist="cdkDropList" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todolist, inProgresslist]">
-            <p class="empty-label" *ngIf="done.length === 0">Empty list</p>
-            <app-task cdkDrag *ngFor="let task of done" [task]="task" (edit)="edit('done',$event)"></app-task>
+          <div cdkDropList id="done" #donelist="cdkDropList" [cdkDropListData]="done | async" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todolist, inProgresslist]">
+            <p class="empty-label" *ngIf="(done | async)?.length === 0">Empty list</p>
+            <app-task cdkDrag *ngFor="let task of done | async" [task]="task" (edit)="edit('done',$event)"></app-task>
           </div>
         </mat-card-content>
       </mat-card>
